@@ -1,81 +1,109 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="gu">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shree Ranchhodraiji Mandir | Official Portal</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shree Ranchhodraiji Mandir - Kosamba</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 <body>
 
-  <header>
-    <div class="logo-container">
-      <h1>Shree Ranchhodraiji Mandir</h1>
+  <!-- Professional Sticky Navigation Header -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="#" class="brand-logo">
+        <span class="om-symbol">🛕</span> Shree Ranchhodji Mandir
+      </a>
+      
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="#about" class="nav-link"><i class="fas fa-info-circle"></i> વિશે (About)</a>
+        <a href="#timings" class="nav-link"><i class="fas fa-clock"></i> સમય (Timings)</a>
+        <a href="#purnima" class="nav-link"><i class="fas fa-moon"></i> પૂનમ (Purnima)</a>
+        <a href="#events" class="nav-link"><i class="fas fa-calendar-alt"></i> ઉત્સવ (Events)</a>
+        <a href="#gallery" class="nav-link"><i class="fas fa-images"></i> દર્શન (Gallery)</a>
+        <a href="#contact" class="nav-link nav-btn"><i class="fas fa-map-marker-alt"></i> સરનામું (Address)</a>
+      </nav>
     </div>
-    <nav>
-      <a href="#aarti">Aarti Timings</a>
-      <a href="#purnima">Purnima Calendar</a>
-      <a href="#events">Events & Notes</a>
-      <a href="#gallery">Gallery</a>
-      <a href="#location">Location</a>
-      <a href="admin.html" class="admin-link">Master Admin</a>
-    </nav>
   </header>
 
+  <!-- Hero Section -->
   <section class="hero">
-    <h2>Jai Shree Ranchhodraiji</h2>
-    <p>Welcome to the Official Temple Portal for Daily Darshan, Aarti Schedules, and Event Updates</p>
+    <div class="hero-content">
+      <h1>|| શ્રી રણછોડરાયજી મંદિર ||</h1>
+      <p>પ્રીતમ નગર, કોસંબા, વલસાડ, ગુજરાત</p>
+    </div>
   </section>
 
-  <div class="container">
+  <!-- About & Temple History Section -->
+  <section id="about" class="section container">
+    <div class="section-title">
+      <h2>મંદિરનો ઇતિહાસ (Temple History)</h2>
+      <div class="underline"></div>
+    </div>
+    <div class="about-card">
+      <p class="history-text">
+        400 વર્ષ જૂનું મંદિર કોસંબા માં આવેલું છે જેમ ભક્ત બોડાણો દ્વારકા થી ડાકોર ભગવાન ને લાવેલા તેમ કોસંબા માં ભક્ત પીતમદાસ હતા તે પણ પોતાનું શાઘ વાળું વહાણ લય દર પૂનમે દ્વારકા પૂનમ ભરવા જતાં હતાં પરંતુ સમય જતાં ભક્ત પીતમદાસ વૃદ્ધ થતા ભગવાન ને પ્રાર્થના કરી હતી કે હવે થી મારા થી દ્વારકા નહીં અવાય તો ભગવાન સાધુ રૂપે કોસંબા આવી એક પેટી માં ભગવાન શ્રી રણછોડ જી મુર્તિ આપી ગયા હતા વર્ષો વીતી ગયા પછી લગભગ 81 વર્ષ થી રામાનંદી પરિવાર સેવા પુજા કરે છે.
+      </p>
+    </div>
+  </section>
 
-    <!-- Aarti Timings -->
-    <section id="aarti" class="section-card">
-      <h2 class="section-title">🔔 Daily Aarti Timings</h2>
-      <div id="aarti-container" class="aarti-grid">
-        <p>Loading Aarti schedules...</p>
+  <!-- Timings & Address Details Section -->
+  <section id="contact" class="section container">
+    <div class="section-title">
+      <h2>મંદિર દર્શન સમય અને સરનામું (Timings & Location)</h2>
+      <div class="underline"></div>
+    </div>
+
+    <div class="info-grid">
+      <!-- Darshan Timings Card -->
+      <div class="info-card">
+        <div class="card-icon"><i class="fas fa-clock"></i></div>
+        <h3>દર્શન સમય (Darshan Timings)</h3>
+        <p class="time-slot"><strong>સવાર:</strong> 7:00 AM – 12:00 PM</p>
+        <p class="time-slot"><strong>સાંજ:</strong> 4:00 PM – 7:00 PM</p>
       </div>
-    </section>
 
-    <!-- Upcoming Purnima Dates -->
-    <section id="purnima" class="section-card">
-      <h2 class="section-title">🌕 Upcoming Purnima Calendar</h2>
-      <ul id="purnima-container" class="purnima-list">
-        <p>Loading Purnima calendar...</p>
-      </ul>
-    </section>
-
-    <!-- Upcoming Events & Temple Notes -->
-    <section id="events" class="section-card">
-      <h2 class="section-title">📢 Upcoming Events & Temple Notes</h2>
-      <div id="events-container" class="events-list">
-        <p>Loading upcoming events...</p>
+      <!-- Address Card -->
+      <div class="info-card">
+        <div class="card-icon"><i class="fas fa-map-marked-alt"></i></div>
+        <h3>સરનામું (Address)</h3>
+        <p class="address-text">
+          Shri Ranchhodji Temple,<br />
+          Pritam Nagar, Kosamba,<br />
+          Valsad, Gujarat 396001, India
+        </p>
       </div>
-    </section>
 
-    <!-- Photo Gallery -->
-    <section id="gallery" class="section-card">
-      <h2 class="section-title">🖼️ Temple Photo Gallery</h2>
-      <div id="gallery-container" class="gallery-grid">
-        <p>No photos uploaded yet.</p>
+      <!-- Social Links Card -->
+      <div class="info-card">
+        <div class="card-icon"><i class="fab fa-instagram"></i></div>
+        <h3>સોશિયલ મીડિયા (Social)</h3>
+        <p>Instagram Handle:</p>
+        <a href="https://instagram.com/kosamba_na_raja_ranchhodji" target="_blank" class="social-link">
+          @kosamba_na_raja_ranchhodji
+        </a>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Location & Contact -->
-    <section id="location" class="section-card">
-      <h2 class="section-title">📍 Temple Location & How to Reach</h2>
-      <p><strong>Address:</strong> Shree Ranchhodraiji Mandir Main Road, Gujarat, India</p>
-      <div class="map-container">
-        <iframe src="https://maps.google.com/maps?q=Ranchhodraiji%20Mandir&t=&z=14&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-      </div>
-    </section>
-
-  </div>
-
+  <!-- Footer -->
   <footer>
-    <p>© Shree Ranchhodraiji Mandir Trust. All Rights Reserved.</p>
+    <p>© 2026 Shree Ranchhodraiji Mandir Trust, Kosamba. All Rights Reserved.</p>
   </footer>
 
-  <script src="script.js"></script>
+  <script>
+    // Responsive Navbar Toggle logic
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+  </script>
 </body>
 </html>
