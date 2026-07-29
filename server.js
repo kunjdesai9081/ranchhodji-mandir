@@ -7,25 +7,28 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const DB_FILE = path.join(__dirname, 'data', 'db.json');
 
-
-
 app.use(express.json());
-app.use(express.static('https://api.render.com/deploy/srv-d9kpd9id0e5s73e51q7g?key=IQaCkrqoTlI'));
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
-});
+
+// Serve static files from both root directory AND public directory
+app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname, 'public')));
+
 // Configure Image Upload Engine
+const uploadDir = fs.existsSync(path.join(__dirname, 'public', 'uploads'))
+  ? path.join(__dirname, 'public', 'uploads')
+  : path.join(__dirname, 'uploads');
+
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
+
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, './public/uploads/');
-  },
-  filename: (req, file, cb) => {
-    cb(null, 'photo-' + Date.now() + path.extname(file.originalname));
-  }
+  destination: (req, file, cb) => cb(null, uploadDir),
+  filename: (req, file, cb) => cb(null, 'photo-' + Date.now() + path.extname(file.originalname))
 });
 const upload = multer({ storage });
 
-// Read/Write Helpers
+// Read/Write Database Helpers
 function getDB() {
   try {
     return JSON.parse(fs.readFileSync(DB_FILE, 'utf8'));
@@ -34,8 +37,24 @@ function getDB() {
   }
 }
 function saveDB(data) {
+  const dir = path.dirname(DB_FILE);
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2));
 }
+
+// Ensure homepage route explicitly serves index.html
+app.get('/', (req, res) => {
+  const rootIndex = path.join(__dirname, 'index.html');
+  const publicIndex = path.join(__dirname, 'public', 'index.html');
+  
+  if (fs.existsSync(rootIndex)) {
+    res.sendFile(rootIndex);
+  } else if (fs.existsSync(publicIndex)) {
+    res.sendFile(publicIndex);
+  } else {
+    res.status(404).send('index.html not found');
+  }
+});
 
 // APIs
 app.get('/api/data', (req, res) => {
@@ -51,7 +70,6 @@ app.post('/api/admin/login', (req, res) => {
   }
 });
 
-// Update Aarti Timings
 app.post('/api/admin/aarti', (req, res) => {
   const db = getDB();
   db.aarti = req.body.aarti;
@@ -59,7 +77,6 @@ app.post('/api/admin/aarti', (req, res) => {
   res.json({ success: true, message: 'Aarti timings updated successfully!' });
 });
 
-// Update Purnima Dates
 app.post('/api/admin/purnima', (req, res) => {
   const db = getDB();
   db.purnima = req.body.purnima;
@@ -67,7 +84,6 @@ app.post('/api/admin/purnima', (req, res) => {
   res.json({ success: true, message: 'Purnima dates updated successfully!' });
 });
 
-// Update Events & Notes
 app.post('/api/admin/events', (req, res) => {
   const db = getDB();
   db.events = req.body.events;
@@ -75,7 +91,6 @@ app.post('/api/admin/events', (req, res) => {
   res.json({ success: true, message: 'Events & Notes updated successfully!' });
 });
 
-// Photo Upload
 app.post('/api/admin/upload', upload.single('image'), (req, res) => {
   if (!req.file) return res.status(400).json({ success: false, message: 'No file uploaded' });
   const db = getDB();
@@ -85,21 +100,6 @@ app.post('/api/admin/upload', upload.single('image'), (req, res) => {
   res.json({ success: true, photoUrl });
 });
 
-// Photo Delete
-app.post('/api/admin/delete-photo', (req, res) => {
-  const { photoUrl } = req.body;
-  const db = getDB();
-  db.gallery = db.gallery.filter(item => item !== photoUrl);
-  saveDB(db);
-  
-  // Remove actual file if exists
-  const filePath = path.join(__dirname, 'public', photoUrl);
-  if (fs.existsSync(filePath)) {
-    fs.unlinkSync(filePath);
-  }
-  res.json({ success: true });
-});
-
 app.listen(PORT, () => {
-  console.log(`Shree Ranchhodraiji Mandir Server running at http://localhost:${PORT}`);
+  console.log(`Shree Ranchhodraiji Mandir Server running on port ${PORT}`);
 });
