@@ -161,34 +161,49 @@
     });
 
     // Flute Music Controls & Auto-play Handling
-    const audio = document.getElementById('fluteAudio');
-    const musicBtn = document.getElementById('musicToggleBtn');
-    const musicBtnText = document.getElementById('musicBtnText');
+    // Flute Music Controls
+const audio = document.getElementById('fluteAudio');
+const musicBtn = document.getElementById('musicToggleBtn');
+const musicBtnText = document.getElementById('musicBtnText');
 
-    function toggleMusic() {
-      if (audio.paused) {
-        audio.play().then(() => {
-          musicBtnText.textContent = "સંગીત ચાલુ";
-          musicBtn.classList.add('playing');
-        }).catch(err => console.log("Autoplay blocked by browser policy"));
-      } else {
-        audio.pause();
-        musicBtnText.textContent = "સંગીત બંધ";
-        musicBtn.classList.remove('playing');
-      }
-    }
+// Function to handle playing audio
+function playFlute() {
+  audio.play().then(() => {
+    musicBtnText.textContent = "સંગીત ચાલુ";
+    musicBtn.classList.add('playing');
+  }).catch(err => {
+    console.log("Autoplay waiting for user gesture.");
+  });
+}
 
-    musicBtn.addEventListener('click', toggleMusic);
+// Manual Toggle Button
+musicBtn.addEventListener('click', (e) => {
+  e.stopPropagation(); // Prevents document click trigger
+  if (audio.paused) {
+    playFlute();
+  } else {
+    audio.pause();
+    musicBtnText.textContent = "સંગીત બંધ";
+    musicBtn.classList.remove('playing');
+  }
+});
 
-    // Attempt autoplay on first user interaction if blocked by browsers
-    window.addEventListener('click', () => {
-      if (audio.paused && !audio.hasAttribute('data-user-paused')) {
-        audio.play().then(() => {
-          musicBtnText.textContent = "સંગીત ચાલુ";
-          musicBtn.classList.add('playing');
-        }).catch(() => {});
-      }
-    }, { once: true });
+// Auto-start music on FIRST click/tap anywhere on the screen
+function enableAudioOnFirstTouch() {
+  if (audio.paused) {
+    playFlute();
+  }
+  // Remove event listeners after first trigger
+  document.removeEventListener('click', enableAudioOnFirstTouch);
+  document.removeEventListener('touchstart', enableAudioOnFirstTouch);
+  document.removeEventListener('scroll', enableAudioOnFirstTouch);
+}
+
+// Listen for any touch, click, or scroll action from visitor
+document.addEventListener('click', enableAudioOnFirstTouch);
+document.addEventListener('touchstart', enableAudioOnFirstTouch);
+document.addEventListener('scroll', enableAudioOnFirstTouch);
+
 
     // Fetch live temple data
     async function fetchTempleData() {
