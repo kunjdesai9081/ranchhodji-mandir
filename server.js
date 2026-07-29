@@ -9,11 +9,11 @@ const DB_FILE = path.join(__dirname, 'data', 'db.json');
 
 app.use(express.json());
 
-// Serve static files from both root directory AND public directory
+// Serve static files from BOTH root and public directory
 app.use(express.static(__dirname));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'Public')));
 
-// Configure Image Upload Engine
+// Upload configuration
 const uploadDir = fs.existsSync(path.join(__dirname, 'public', 'uploads'))
   ? path.join(__dirname, 'public', 'uploads')
   : path.join(__dirname, 'uploads');
@@ -28,7 +28,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-// Read/Write Database Helpers
+// Database Helper Functions
 function getDB() {
   try {
     return JSON.parse(fs.readFileSync(DB_FILE, 'utf8'));
@@ -36,27 +36,28 @@ function getDB() {
     return { aarti: [], purnima: [], events: [], gallery: [] };
   }
 }
+
 function saveDB(data) {
   const dir = path.dirname(DB_FILE);
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2));
 }
 
-// Ensure homepage route explicitly serves index.html
+// Serve Main Homepage
 app.get('/', (req, res) => {
   const rootIndex = path.join(__dirname, 'index.html');
   const publicIndex = path.join(__dirname, 'public', 'index.html');
-  
+
   if (fs.existsSync(rootIndex)) {
     res.sendFile(rootIndex);
   } else if (fs.existsSync(publicIndex)) {
     res.sendFile(publicIndex);
   } else {
-    res.status(404).send('index.html not found');
+    res.status(404).send('index.html not found on server');
   }
 });
 
-// APIs
+// API Routes
 app.get('/api/data', (req, res) => {
   res.json(getDB());
 });
@@ -101,5 +102,5 @@ app.post('/api/admin/upload', upload.single('image'), (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Shree Ranchhodraiji Mandir Server running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
