@@ -301,4 +301,31 @@ footer {
   .hero-content h1 {
     font-size: 1.7rem;
   }
+  /* Music Toggle Button Styling */
+.music-btn {
+  background: var(--gold-light);
+  color: var(--primary-deep);
+  border: 1px solid var(--gold-glow);
+  padding: 0.4rem 0.9rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.3s ease;
+}
+
+.music-btn:hover {
+  background: var(--gold-glow);
+  color: #ffffff;
+}
+
+.music-btn.playing {
+  background: var(--saffron);
+  color: #ffffff;
+  border-color: var(--saffron);
+}
+  
 }
