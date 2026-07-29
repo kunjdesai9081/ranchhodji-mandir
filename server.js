@@ -7,6 +7,10 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const DB_FILE = path.join(__dirname, 'data', 'db.json');
 
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
 app.use(express.json());
 app.use(express.static('https://api.render.com/deploy/srv-d9kpd9id0e5s73e51q7g?key=IQaCkrqoTlI'));
 
