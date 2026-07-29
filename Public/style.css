@@ -327,5 +327,61 @@ footer {
   color: #ffffff;
   border-color: var(--saffron);
 }
+  /* Card Tag Badges */
+.card-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  background: rgba(139, 30, 34, 0.1);
+  color: var(--primary-accent);
+  margin-bottom: 0.6rem;
+}
+
+.purnima-tag {
+  background: rgba(230, 81, 0, 0.1);
+  color: var(--saffron);
+}
+
+.event-tag {
+  background: rgba(212, 175, 55, 0.15);
+  color: #B78103;
+}
+
+.card-time {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--primary-deep);
+  margin: 0.4rem 0;
+}
+
+.card-desc {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 0.4rem;
+}
+
+/* Loading & Empty Indicators */
+.loading-spinner {
+  text-align: center;
+  color: var(--saffron);
+  font-weight: 500;
+  padding: 2rem;
+  grid-column: 1 / -1;
+  font-size: 1.1rem;
+}
+
+.empty-msg {
+  text-align: center;
+  color: var(--text-muted);
+  font-style: italic;
+  grid-column: 1 / -1;
+  padding: 1.5rem;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px dashed var(--gold-glow);
+}
+  
   
 }
