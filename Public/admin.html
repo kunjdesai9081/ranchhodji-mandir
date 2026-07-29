@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Master Admin Control Panel | Ranchhodraiji Mandir</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <div class="logo-container">
+      <h1>Ranchhodraiji Mandir Admin Portal</h1>
+    </div>
+    <nav>
+      <a href="index.html" style="color: #FFD700;">← Back to Main Website</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    
+    <!-- LOGIN FORM -->
+    <div id="login-section" class="login-box">
+      <h2 style="color: var(--primary-maroon); text-align: center; margin-bottom: 1.5rem;">Master Admin Login</h2>
+      <form id="admin-login-form">
+        <div class="form-group">
+          <label>Admin Username</label>
+          <input type="text" id="admin-username" value="admin" required>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="admin-password" placeholder="Enter password" required>
+        </div>
+        <button type="submit" class="btn" style="width: 100%;">Login to Dashboard</button>
+      </form>
+    </div>
+
+    <!-- ADMIN CONTROL PANEL DASHBOARD -->
+    <div id="dashboard-section" style="display: none;">
+      
+      <div class="admin-header-bar">
+        <h2>Master Control Dashboard</h2>
+        <button id="logout-btn" class="btn btn-secondary">Logout</button>
+      </div>
+
+      <!-- Manage Aarti Timings -->
+      <section class="section-card">
+        <h2 class="section-title">🔔 Manage Aarti Timings</h2>
+        <form id="aarti-form">
+          <div class="form-group">
+            <label>Aarti Name</label>
+            <input type="text" id="aarti-name" placeholder="e.g. Mangla Aarti" required>
+          </div>
+          <div class="form-group">
+            <label>Time</label>
+            <input type="text" id="aarti-time" placeholder="e.g. 06:00 AM" required>
+          </div>
+          <div class="form-group">
+            <label>Details / Description</label>
+            <input type="text" id="aarti-details" placeholder="e.g. Morning Prayer">
+          </div>
+          <button type="submit" class="btn">Add / Update Aarti</button>
+        </form>
+        
+        <table class="admin-table">
+          <thead>
+            <tr><th>Name</th><th>Time</th><th>Details</th><th>Action</th></tr>
+          </thead>
+          <tbody id="admin-aarti-list"></tbody>
+        </table>
+      </section>
+
+      <!-- Manage Purnima Dates -->
+      <section class="section-card">
+        <h2 class="section-title">🌕 Manage Purnima Dates</h2>
+        <form id="purnima-form">
+          <div class="form-group">
+            <label>Purnima Title</label>
+            <input type="text" id="purnima-name" placeholder="e.g. Sharad Purnima" required>
+          </div>
+          <div class="form-group">
+            <label>Date</label>
+            <input type="date" id="purnima-date" required>
+          </div>
+          <div class="form-group">
+            <label>Special Celebration Note</label>
+            <input type="text" id="purnima-note" placeholder="e.g. Mahaprasad distribution">
+          </div>
+          <button type="submit" class="btn">Add Purnima Entry</button>
+        </form>
+
+        <table class="admin-table">
+          <thead>
+            <tr><th>Purnima Title</th><th>Date</th><th>Note</th><th>Action</th></tr>
+          </thead>
+          <tbody id="admin-purnima-list"></tbody>
+        </table>
+      </section>
+
+      <!-- Manage Events & Notes -->
+      <section class="section-card">
+        <h2 class="section-title">📢 Manage Events & Temple Notes</h2>
+        <form id="events-form">
+          <div class="form-group">
+            <label>Event / Note Title</label>
+            <input type="text" id="event-title" placeholder="e.g. Annakut Mahotsav" required>
+          </div>
+          <div class="form-group">
+            <label>Date</label>
+            <input type="date" id="event-date" required>
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <textarea id="event-desc" rows="3" placeholder="Full announcement details..." required></textarea>
+          </div>
+          <button type="submit" class="btn">Publish Event / Note</button>
+        </form>
+
+        <table class="admin-table">
+          <thead>
+            <tr><th>Title</th><th>Date</th><th>Description</th><th>Action</th></tr>
+          </thead>
+          <tbody id="admin-events-list"></tbody>
+        </table>
+      </section>
+
+      <!-- Photo Gallery Upload -->
+      <section class="section-card">
+        <h2 class="section-title">🖼️ Upload Temple Photos</h2>
+        <form id="upload-form" enctype="multipart/form-data">
+          <div class="form-group">
+            <label>Select Photo</label>
+            <input type="file" id="photo-file" accept="image/*" required>
+          </div>
+          <button type="submit" class="btn">Upload to Gallery</button>
+        </form>
+
+        <h3 style="margin-top: 1.5rem; color: var(--primary-maroon);">Uploaded Photos</h3>
+        <div id="admin-gallery-list" class="gallery-grid" style="margin-top: 10px;"></div>
+      </section>
+
+    </div>
+
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>
