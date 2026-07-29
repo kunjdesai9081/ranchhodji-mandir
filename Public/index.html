@@ -149,28 +149,45 @@
   <script>
     // Responsive Navbar Toggle
     // Responsive Navbar Toggle logic
+cons// Responsive Navbar Toggle Logic
 const menuToggle = document.getElementById('menuToggle');
 const navLinks = document.getElementById('navLinks');
 
-// Toggle menu on hamburger icon click
+// 1. Toggle mobile menu open/close
 menuToggle.addEventListener('click', (e) => {
   e.stopPropagation();
   navLinks.classList.toggle('active');
 });
 
-// Automatically CLOSE mobile menu when any navigation link is tapped
-document.querySelectorAll('.nav-link').forEach(link => {
-  link.addEventListener('click', () => {
+// 2. FORCE CLOSE menu on clicking ANY link inside the navigation
+const links = navLinks.querySelectorAll('a');
+links.forEach(link => {
+  link.addEventListener('click', (e) => {
+    // Explicitly remove the active class to collapse the overlay menu
     navLinks.classList.remove('active');
+    
+    // Smooth scroll handling for anchor links
+    const targetId = link.getAttribute('href');
+    if (targetId && targetId.startsWith('#')) {
+      const targetElement = document.querySelector(targetId);
+      if (targetElement) {
+        e.preventDefault();
+        targetElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    }
   });
 });
 
-// Close menu if user taps outside the menu area
+// 3. Close menu if user taps outside the menu container
 document.addEventListener('click', (e) => {
   if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
     navLinks.classList.remove('active');
   }
 });
+
 
     // Flute Audio Autoplay & Controls
     const audio = document.getElementById('fluteAudio');
