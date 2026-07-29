@@ -1,0 +1,51 @@
+{
+  "aarti": [
+    {
+      "id": 1,
+      "name": "Mangla Aarti",
+      "time": "06:00 AM",
+      "details": "Morning darshan and stuti"
+    },
+    {
+      "id": 2,
+      "name": "Rajbhog Aarti",
+      "time": "12:00 PM",
+      "details": "Mid-day bhog offering"
+    },
+    {
+      "id": 3,
+      "name": "Sandhya Aarti",
+      "time": "07:00 PM",
+      "details": "Evening deepotsav and aarti"
+    }
+  ],
+  "purnima": [
+    {
+      "id": 1,
+      "name": "Sharad Purnima",
+      "date": "2026-10-25",
+      "note": "Special Raasotsav Darshan & Mahaprasad"
+    },
+    {
+      "id": 2,
+      "name": "Kartik Purnima",
+      "date": "2026-11-24",
+      "note": "Dev Diwali Celebration & Annakut"
+    }
+  ],
+  "events": [
+    {
+      "id": 1,
+      "title": "Annakut Mahotsav",
+      "date": "2026-11-09",
+      "description": "Join us on Govardhan Puja for the grand 56 Bhog Annakut Darshan."
+    },
+    {
+      "id": 2,
+      "title": "Special Temple Maintenance Note",
+      "date": "2026-08-15",
+      "description": "Mandir premises will remain open for extended darshan timing during holidays."
+    }
+  ],
+  "gallery": []
+}
