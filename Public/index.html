@@ -11,18 +11,16 @@
 
   <!-- Audio Element for Flute Music -->
   <audio id="fluteAudio" loop preload="auto">
-    <!-- Replace with your preferred flute audio file path in your public folder -->
     <source src="audio/flute-music.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- Sticky Navigation Header -->
+  <!-- Sticky Professional Header -->
   <header class="navbar">
     <div class="nav-container">
       <a href="#" class="brand-logo">
         <span class="om-symbol">🛕</span> શ્રી રણછોડરાયજી મંદિર
       </a>
 
-      <!-- Music Play/Pause Toggle Button -->
       <button id="musicToggleBtn" class="music-btn" title="સંગીત ચાલુ/બંધ કરો">
         <i class="fas fa-music"></i> <span id="musicBtnText">સંગીત</span>
       </button>
@@ -42,7 +40,7 @@
     </div>
   </header>
 
-  <!-- Hero Banner Section -->
+  <!-- Hero Banner -->
   <section class="hero">
     <div class="hero-content">
       <h1>|| શ્રી રણછોડરાયજી મંદિર ||</h1>
@@ -50,7 +48,7 @@
     </div>
   </section>
 
-  <!-- About & Temple History Section -->
+  <!-- About Section -->
   <section id="about" class="section container">
     <div class="section-title">
       <h2>મંદિરનો ઇતિહાસ</h2>
@@ -63,25 +61,25 @@
     </div>
   </section>
 
-  <!-- Dynamic Aarti Timings Section -->
+  <!-- Dynamic Aarti Section -->
   <section id="timings" class="section container">
     <div class="section-title">
       <h2>આરતી અને દર્શન સમય</h2>
       <div class="underline"></div>
     </div>
     <div id="aartiContainer" class="data-card-grid">
-      <p class="loading-text">લોડ થઈ રહ્યું છે...</p>
+      <div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i> લોડ થઈ રહ્યું છે...</div>
     </div>
   </section>
 
-  <!-- Dynamic Poonam Dates Section -->
+  <!-- Dynamic Poonam Section -->
   <section id="purnima" class="section container">
     <div class="section-title">
       <h2>પૂનમ તિથિ પત્રક</h2>
       <div class="underline"></div>
     </div>
     <div id="purnimaContainer" class="data-card-grid">
-      <p class="loading-text">લોડ થઈ રહ્યું છે...</p>
+      <div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i> લોડ થઈ રહ્યું છે...</div>
     </div>
   </section>
 
@@ -92,7 +90,7 @@
       <div class="underline"></div>
     </div>
     <div id="eventsContainer" class="data-card-grid">
-      <p class="loading-text">લોડ થઈ રહ્યું છે...</p>
+      <div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i> લોડ થઈ રહ્યું છે...</div>
     </div>
   </section>
 
@@ -103,11 +101,11 @@
       <div class="underline"></div>
     </div>
     <div id="galleryContainer" class="gallery-grid">
-      <p class="loading-text">લોડ થઈ રહ્યું છે...</p>
+      <div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i> લોડ થઈ રહ્યું છે...</div>
     </div>
   </section>
 
-  <!-- Address Details Section -->
+  <!-- Address & Contact Section -->
   <section id="contact" class="section container">
     <div class="section-title">
       <h2>મંદિર સરનામું અને સંપર્ક</h2>
@@ -147,8 +145,9 @@
     <p>© 2026 Shree Ranchhodraiji Mandir Trust, Kosamba. All Rights Reserved.</p>
   </footer>
 
+  <!-- Dynamic Script -->
   <script>
-    // Navigation Toggle Logic
+    // Responsive Navbar Toggle
     const menuToggle = document.getElementById('menuToggle');
     const navLinks = document.getElementById('navLinks');
 
@@ -160,98 +159,92 @@
       link.addEventListener('click', () => navLinks.classList.remove('active'));
     });
 
-    // Flute Music Controls & Auto-play Handling
-    // Flute Music Controls
-const audio = document.getElementById('fluteAudio');
-const musicBtn = document.getElementById('musicToggleBtn');
-const musicBtnText = document.getElementById('musicBtnText');
+    // Flute Audio Autoplay & Controls
+    const audio = document.getElementById('fluteAudio');
+    const musicBtn = document.getElementById('musicToggleBtn');
+    const musicBtnText = document.getElementById('musicBtnText');
 
-// Function to handle playing audio
-function playFlute() {
-  audio.play().then(() => {
-    musicBtnText.textContent = "સંગીત ચાલુ";
-    musicBtn.classList.add('playing');
-  }).catch(err => {
-    console.log("Autoplay waiting for user gesture.");
-  });
-}
+    function playFlute() {
+      audio.play().then(() => {
+        musicBtnText.textContent = "સંગીત ચાલુ";
+        musicBtn.classList.add('playing');
+      }).catch(() => {});
+    }
 
-// Manual Toggle Button
-musicBtn.addEventListener('click', (e) => {
-  e.stopPropagation(); // Prevents document click trigger
-  if (audio.paused) {
-    playFlute();
-  } else {
-    audio.pause();
-    musicBtnText.textContent = "સંગીત બંધ";
-    musicBtn.classList.remove('playing');
-  }
-});
+    musicBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (audio.paused) {
+        playFlute();
+      } else {
+        audio.pause();
+        musicBtnText.textContent = "સંગીત બંધ";
+        musicBtn.classList.remove('playing');
+      }
+    });
 
-// Auto-start music on FIRST click/tap anywhere on the screen
-function enableAudioOnFirstTouch() {
-  if (audio.paused) {
-    playFlute();
-  }
-  // Remove event listeners after first trigger
-  document.removeEventListener('click', enableAudioOnFirstTouch);
-  document.removeEventListener('touchstart', enableAudioOnFirstTouch);
-  document.removeEventListener('scroll', enableAudioOnFirstTouch);
-}
+    function enableAudioOnFirstTouch() {
+      if (audio.paused) {
+        playFlute();
+      }
+      document.removeEventListener('click', enableAudioOnFirstTouch);
+      document.removeEventListener('touchstart', enableAudioOnFirstTouch);
+      document.removeEventListener('scroll', enableAudioOnFirstTouch);
+    }
 
-// Listen for any touch, click, or scroll action from visitor
-document.addEventListener('click', enableAudioOnFirstTouch);
-document.addEventListener('touchstart', enableAudioOnFirstTouch);
-document.addEventListener('scroll', enableAudioOnFirstTouch);
+    document.addEventListener('click', enableAudioOnFirstTouch);
+    document.addEventListener('touchstart', enableAudioOnFirstTouch);
+    document.addEventListener('scroll', enableAudioOnFirstTouch);
 
-
-    // Fetch live temple data
+    // Fetch Dynamic Data from Server API
     async function fetchTempleData() {
       try {
         const response = await fetch('/api/data');
         const data = await response.json();
 
-        // Render Aarti Timings
+        // 1. Render Aarti
         const aartiContainer = document.getElementById('aartiContainer');
         if (data.aarti && data.aarti.length > 0) {
           aartiContainer.innerHTML = data.aarti.map(item => `
             <div class="display-card">
-              <h4>${item.name || item.title || 'આરતી'}</h4>
-              <p><i class="fas fa-clock"></i> ${item.time || item.details || ''}</p>
+              <div class="card-tag"><i class="fas fa-bell"></i> આરતી</div>
+              <h4>${item.name || item.title || 'આરતી સમય'}</h4>
+              <p class="card-time"><i class="fas fa-clock"></i> ${item.time || item.details || ''}</p>
             </div>
           `).join('');
         } else {
-          aartiContainer.innerHTML = '<p class="empty-msg">હાલમાં માહિતી ઉપલબ્ધ નથી.</p>';
+          aartiContainer.innerHTML = '<p class="empty-msg">હાલમાં આરતી વિગત ઉપલબ્ધ નથી.</p>';
         }
 
-        // Render Poonam Timings
+        // 2. Render Poonam Dates
         const purnimaContainer = document.getElementById('purnimaContainer');
         if (data.purnima && data.purnima.length > 0) {
           purnimaContainer.innerHTML = data.purnima.map(item => `
             <div class="display-card highlight-card">
-              <h4><i class="fas fa-moon"></i> ${item.month || item.title || 'પૂનમ'}</h4>
-              <p><strong>તારીખ:</strong> ${item.date || item.details || ''}</p>
+              <div class="card-tag purnima-tag"><i class="fas fa-moon"></i> પૂનમ</div>
+              <h4>${item.month || item.title || 'મહિનો'}</h4>
+              <p class="card-time"><i class="fas fa-calendar-check"></i> ${item.date || item.details || ''}</p>
             </div>
           `).join('');
         } else {
-          purnimaContainer.innerHTML = '<p class="empty-msg">હાલમાં પૂનમ વિગત ઉપલબ્ધ નથી.</p>';
+          purnimaContainer.innerHTML = '<p class="empty-msg">હાલમાં પૂનમ તિથિ વિગત ઉપલબ્ધ નથી.</p>';
         }
 
-        // Render Events
+        // 3. Render Events
         const eventsContainer = document.getElementById('eventsContainer');
         if (data.events && data.events.length > 0) {
           eventsContainer.innerHTML = data.events.map(item => `
             <div class="display-card">
+              <div class="card-tag event-tag"><i class="fas fa-star"></i> ઉત્સવ</div>
               <h4>${item.title || item.name || 'ઉત્સવ'}</h4>
-              <p>${item.date ? '<strong>તારીખ:</strong> ' + item.date : ''}</p>
-              <p>${item.description || item.details || ''}</p>
+              ${item.date ? `<p class="card-time"><i class="fas fa-calendar"></i> ${item.date}</p>` : ''}
+              <p class="card-desc">${item.description || item.details || ''}</p>
             </div>
           `).join('');
         } else {
-          eventsContainer.innerHTML = '<p class="empty-msg">હાલમાં કોઈ નવો ઉત્સવ નથી.</p>';
+          eventsContainer.innerHTML = '<p class="empty-msg">હાલમાં કોઈ આગામી ઉત્સવ નથી.</p>';
         }
 
-        // Render Gallery
+        // 4. Render Gallery
         const galleryContainer = document.getElementById('galleryContainer');
         if (data.gallery && data.gallery.length > 0) {
           galleryContainer.innerHTML = data.gallery.map(url => `
@@ -260,11 +253,11 @@ document.addEventListener('scroll', enableAudioOnFirstTouch);
             </div>
           `).join('');
         } else {
-          galleryContainer.innerHTML = '<p class="empty-msg">ફોટા ટૂંક સમયમાં અપલોડ થશે.</p>';
+          galleryContainer.innerHTML = '<p class="empty-msg">ગેલેરી ફોટા ટૂંક સમયમાં અપલોડ થશે.</p>';
         }
 
       } catch (error) {
-        console.error("Error loading data:", error);
+        console.error("Error fetching data:", error);
       }
     }
 
