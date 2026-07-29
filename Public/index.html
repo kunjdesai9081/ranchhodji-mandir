@@ -22,8 +22,8 @@
 
       <nav class="nav-links" id="navLinks">
         <a href="#about" class="nav-link"><i class="fas fa-info-circle"></i> વિશે (About)</a>
-        <a href="#timings" class="nav-link"><i class="fas fa-clock"></i> સમય (Timings)</a>
-        <a href="#purnima" class="nav-link"><i class="fas fa-moon"></i> પૂનમ (Purnima)</a>
+        <a href="#timings" class="nav-link"><i class="fas fa-clock"></i> આરતી (Aarti)</a>
+        <a href="#purnima" class="nav-link"><i class="fas fa-moon"></i> પૂનમ (Poonam)</a>
         <a href="#events" class="nav-link"><i class="fas fa-calendar-alt"></i> ઉત્સવ (Events)</a>
         <a href="#gallery" class="nav-link"><i class="fas fa-images"></i> દર્શન (Gallery)</a>
         <a href="#contact" class="nav-link nav-btn"><i class="fas fa-map-marker-alt"></i> સરનામું (Address)</a>
@@ -52,18 +52,62 @@
     </div>
   </section>
 
-  <!-- Timings & Address Details Section -->
+  <!-- Dynamic Aarti Timings Section -->
+  <section id="timings" class="section container">
+    <div class="section-title">
+      <h2>આરતી અને દર્શન સમય (Aarti Timings)</h2>
+      <div class="underline"></div>
+    </div>
+    <div id="aartiContainer" class="data-card-grid">
+      <p class="loading-text">લોડ થઈ રહ્યું છે...</p>
+    </div>
+  </section>
+
+  <!-- Dynamic Poonam Dates Section -->
+  <section id="purnima" class="section container">
+    <div class="section-title">
+      <h2>પૂનમ તિથિ પત્રક (Poonam Timings & Dates)</h2>
+      <div class="underline"></div>
+    </div>
+    <div id="purnimaContainer" class="data-card-grid">
+      <p class="loading-text">લોડ થઈ રહ્યું છે...</p>
+    </div>
+  </section>
+
+  <!-- Dynamic Events Section -->
+  <section id="events" class="section container">
+    <div class="section-title">
+      <h2>આગામી ઉત્સવ અને તહેવાર (Upcoming Events)</h2>
+      <div class="underline"></div>
+    </div>
+    <div id="eventsContainer" class="data-card-grid">
+      <p class="loading-text">લોડ થઈ રહ્યું છે...</p>
+    </div>
+  </section>
+
+  <!-- Dynamic Gallery Section -->
+  <section id="gallery" class="section container">
+    <div class="section-title">
+      <h2>શ્રીજી દર્શન (Darshan Gallery)</h2>
+      <div class="underline"></div>
+    </div>
+    <div id="galleryContainer" class="gallery-grid">
+      <p class="loading-text">લોડ થઈ રહ્યું છે...</p>
+    </div>
+  </section>
+
+  <!-- Address Details & Contact Section -->
   <section id="contact" class="section container">
     <div class="section-title">
-      <h2>મંદિર દર્શન સમય અને સરનામું (Timings & Location)</h2>
+      <h2>મંદિર સરનામું અને સંપર્ક (Address & Contact)</h2>
       <div class="underline"></div>
     </div>
 
     <div class="info-grid">
-      <!-- Darshan Timings Card -->
+      <!-- General Darshan Hours -->
       <div class="info-card">
         <div class="card-icon"><i class="fas fa-clock"></i></div>
-        <h3>દર્શન સમય (Darshan Timings)</h3>
+        <h3>મંદિર ખુલ્લો રહેવાનો સમય</h3>
         <p class="time-slot"><strong>સવાર:</strong> 7:00 AM – 12:00 PM</p>
         <p class="time-slot"><strong>સાંજ:</strong> 4:00 PM – 7:00 PM</p>
       </div>
@@ -82,7 +126,7 @@
       <!-- Social Links Card -->
       <div class="info-card">
         <div class="card-icon"><i class="fab fa-instagram"></i></div>
-        <h3>સોશિયલ મીડિયા (Social)</h3>
+        <h3>સોશિયલ મીડિયા</h3>
         <p>Instagram Handle:</p>
         <a href="https://instagram.com/kosamba_na_raja_ranchhodji" target="_blank" class="social-link">
           @kosamba_na_raja_ranchhodji
@@ -96,6 +140,7 @@
     <p>© 2026 Shree Ranchhodraiji Mandir Trust, Kosamba. All Rights Reserved.</p>
   </footer>
 
+  <!-- Dynamic Data Fetching Script -->
   <script>
     // Responsive Navbar Toggle logic
     const menuToggle = document.getElementById('menuToggle');
@@ -104,6 +149,79 @@
     menuToggle.addEventListener('click', () => {
       navLinks.classList.toggle('active');
     });
+
+    // Close mobile nav when clicking links
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+      });
+    });
+
+    // Fetch live data from Express Server
+    async function fetchTempleData() {
+      try {
+        const response = await fetch('/api/data');
+        const data = await response.json();
+
+        // Render Aarti Timings
+        const aartiContainer = document.getElementById('aartiContainer');
+        if (data.aarti && data.aarti.length > 0) {
+          aartiContainer.innerHTML = data.aarti.map(item => `
+            <div class="display-card">
+              <h4>${item.name || item.title || 'આરતી'}</h4>
+              <p><i class="fas fa-time"></i> ${item.time || item.details || ''}</p>
+            </div>
+          `).join('');
+        } else {
+          aartiContainer.innerHTML = '<p class="empty-msg">હાલમાં માહિતી ઉપલબ્ધ નથી.</p>';
+        }
+
+        // Render Poonam Timings
+        const purnimaContainer = document.getElementById('purnimaContainer');
+        if (data.purnima && data.purnima.length > 0) {
+          purnimaContainer.innerHTML = data.purnima.map(item => `
+            <div class="display-card highlight-card">
+              <h4><i class="fas fa-moon"></i> ${item.month || item.title || 'પૂનમ'}</h4>
+              <p><strong>તારીખ:</strong> ${item.date || item.details || ''}</p>
+            </div>
+          `).join('');
+        } else {
+          purnimaContainer.innerHTML = '<p class="empty-msg">હાલમાં પૂનમ વિગત ઉપલબ્ધ નથી.</p>';
+        }
+
+        // Render Events
+        const eventsContainer = document.getElementById('eventsContainer');
+        if (data.events && data.events.length > 0) {
+          eventsContainer.innerHTML = data.events.map(item => `
+            <div class="display-card">
+              <h4>${item.title || item.name || 'ઉત્સવ'}</h4>
+              <p>${item.date ? '<strong>તારીખ:</strong> ' + item.date : ''}</p>
+              <p>${item.description || item.details || ''}</p>
+            </div>
+          `).join('');
+        } else {
+          eventsContainer.innerHTML = '<p class="empty-msg">હાલમાં કોઈ નવો ઉત્સવ નથી.</p>';
+        }
+
+        // Render Gallery
+        const galleryContainer = document.getElementById('galleryContainer');
+        if (data.gallery && data.gallery.length > 0) {
+          galleryContainer.innerHTML = data.gallery.map(url => `
+            <div class="gallery-item">
+              <img src="${url}" alt="Shreeji Darshan" loading="lazy" />
+            </div>
+          `).join('');
+        } else {
+          galleryContainer.innerHTML = '<p class="empty-msg">ફોટા ટૂંક સમયમાં અપલોડ થશે.</p>';
+        }
+
+      } catch (error) {
+        console.error("Error loading data:", error);
+      }
+    }
+
+    // Load data on page launch
+    window.addEventListener('DOMContentLoaded', fetchTempleData);
   </script>
 </body>
 </html>
