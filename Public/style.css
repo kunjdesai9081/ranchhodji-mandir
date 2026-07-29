@@ -303,30 +303,31 @@ footer {
   }
 
   /* Fix header overlap when scrolling to sections */
-section {
-  scroll-margin-top: 80px;
-}
-
-/* Ensure mobile menu stays neatly aligned */
+/* Mobile Navigation Drawer Styling */
 @media (max-width: 768px) {
   .nav-links {
-    display: none;
+    display: none !important; /* Forces menu to be hidden by default */
     flex-direction: column;
-    position: absolute;
-    top: 100%;
+    position: fixed; /* Using fixed ensures it stays pinned properly */
+    top: 60px; /* Adjust according to navbar height */
     left: 0;
     width: 100%;
     background: var(--primary-deep);
     padding: 1.5rem 0;
-    border-bottom: 3px solid var(--gold-glow);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
-    z-index: 999;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    z-index: 9999;
   }
 
   .nav-links.active {
-    display: flex;
+    display: flex !important; /* Displays only when active class is added */
   }
 }
+
+/* Header offset fix for target sections */
+section {
+  scroll-margin-top: 80px;
+}
+
 
   /* Music Toggle Button Styling */
 .music-btn {
