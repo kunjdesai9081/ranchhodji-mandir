@@ -276,31 +276,6 @@ footer {
 }
 
 /* Mobile Responsiveness */
-@media (max-width: 768px) {
-  .menu-toggle {
-    display: block;
-  }
-
-  .nav-links {
-    display: none;
-    flex-direction: column;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background: var(--primary-deep);
-    padding: 1.2rem 0;
-    border-bottom: 3px solid var(--gold-glow);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-  }
-
-  .nav-links.active {
-    display: flex;
-  }
-
-  .hero-content h1 {
-    font-size: 1.7rem;
-  }
 
   /* Fix header overlap when scrolling to sections */
 /* Mobile Navigation Drawer Styling */
