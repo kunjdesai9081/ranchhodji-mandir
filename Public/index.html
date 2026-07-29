@@ -148,16 +148,29 @@
   <!-- Dynamic Script -->
   <script>
     // Responsive Navbar Toggle
-    const menuToggle = document.getElementById('menuToggle');
-    const navLinks = document.getElementById('navLinks');
+    // Responsive Navbar Toggle logic
+const menuToggle = document.getElementById('menuToggle');
+const navLinks = document.getElementById('navLinks');
 
-    menuToggle.addEventListener('click', () => {
-      navLinks.classList.toggle('active');
-    });
+// Toggle menu on hamburger icon click
+menuToggle.addEventListener('click', (e) => {
+  e.stopPropagation();
+  navLinks.classList.toggle('active');
+});
 
-    document.querySelectorAll('.nav-link').forEach(link => {
-      link.addEventListener('click', () => navLinks.classList.remove('active'));
-    });
+// Automatically CLOSE mobile menu when any navigation link is tapped
+document.querySelectorAll('.nav-link').forEach(link => {
+  link.addEventListener('click', () => {
+    navLinks.classList.remove('active');
+  });
+});
+
+// Close menu if user taps outside the menu area
+document.addEventListener('click', (e) => {
+  if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
+    navLinks.classList.remove('active');
+  }
+});
 
     // Flute Audio Autoplay & Controls
     const audio = document.getElementById('fluteAudio');
